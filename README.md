@@ -8,6 +8,22 @@
 [![semantic-release][semantic-image] ][semantic-url]
 [![js-standard-style][standard-image]][standard-url]
 
+## Problem
+
+Often you want to run a post install script that does something. Yet, this
+`postinstall` script will run *even in the module itself*. Thus we need a
+simple way to determine if we are installing our dependencies or installing
+the current module as a dependency of some other module. This can be
+explained by a difference in commands below
+
+```
+npm i      -> we are installing our dependencies
+npm i foo  -> module "foo" is being installed as a dependency
+```
+
+If module `foo` has a `postinstall` script, it can use this module
+`am-i-a-dependency` to determine if it should be executed.
+
 ## Install
 
 Requires [Node](https://nodejs.org/en/) version 6 or above.
@@ -15,8 +31,28 @@ Requires [Node](https://nodejs.org/en/) version 6 or above.
 ```sh
 npm install --save am-i-a-dependency
 ```
-
 ## Use
+
+Imagine a `postinstall` script
+
+```json
+{
+  "scripts": "node something.js"
+}
+```
+
+Then inside `something.js` we can check
+
+```js
+// something.js
+const amDependency = require('am-i-a-dependency')()
+if (amDependency) {
+  // yes, do something interesting
+  // someone is executing "npm install foo"
+} else {
+  // we are inside "foo" itself, so nothing to do
+}
+```
 
 ### Small print
 
