@@ -37,7 +37,9 @@ Imagine a `postinstall` script
 
 ```json
 {
-  "scripts": "node something.js"
+  "scripts": {
+    "postinstall": "node something.js"
+  }
 }
 ```
 
