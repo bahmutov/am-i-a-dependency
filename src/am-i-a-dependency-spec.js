@@ -30,4 +30,18 @@ describe('am-i-a-dependency', () => {
         process.cwd())
     })
   })
+
+  describe('from @scoped node_modules', () => {
+    beforeEach(() => {
+      const semanticReleaseFolder = fromFolder('..', 'node_modules', '@semantic-release', 'error')
+      return chdir.to(semanticReleaseFolder)
+    })
+
+    afterEach(chdir.back)
+
+    it('determines when is a dependency', () => {
+      la(amIADependency(), 'should be a dependency when in folder',
+        process.cwd())
+    })
+  })
 })
