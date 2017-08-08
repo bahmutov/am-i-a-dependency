@@ -6,6 +6,8 @@ notifications:
   email: true
 node_js:
   - '4'
+before_install:
+  - npm install npm@3
 before_script:
   - npm prune
 script:
