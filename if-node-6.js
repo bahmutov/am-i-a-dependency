@@ -1,5 +1,6 @@
 if (/^v6/.test(process.version)) {
-  console.log('node 6')
+  console.log('node', process.version)
+
   const execa = require('execa')
   const scriptName = process.argv[2]
   console.log('running script', scriptName)
