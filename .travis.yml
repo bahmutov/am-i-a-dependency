@@ -15,7 +15,7 @@ script:
   - ./next-update-travis.sh
   - npm test
 after_success:
-  - "`node -v`" == v6* && npm run semantic-release
+  - npm run if-node-6 -- semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
